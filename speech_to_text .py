@@ -173,15 +173,27 @@ def debate_loop(topic, stance, duration_minutes):
     print(f"🧾 Debate Summary & Scoring:\n{final_summary}")
 
 # Entry point
+def analyze_poll_shift(pre, post):
+    print("\n📈 Audience Opinion Shift Analysis:")
+    for key in pre:
+        shift = post[key] - pre[key]
+        symbol = "📈" if shift > 0 else ("📉" if shift < 0 else "➖")
+        print(f"{symbol} {key.upper()} shift: {shift} votes")
+
 def main():
     print("🎙 Welcome to the Real-Time AI Debate Platform!")
     topic = get_debate_topic()
     user_stance = get_stance()
     duration = get_duration()
 
-    # Flip user's stance so AI argues the opposite
+    pre_votes = collect_audience_votes(stage="before")
+
     ai_stance = "against" if user_stance == "for" else "for"
     debate_loop(topic, ai_stance, duration)
+
+    post_votes = collect_audience_votes(stage="after")
+
+    analyze_poll_shift(pre_votes, post_votes)
 
 if __name__ == "__main__":
     main()
