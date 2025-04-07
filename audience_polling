@@ -1,0 +1,33 @@
+def collect_audience_votes(stage="before"):
+    print(f"\n📊 Audience Polling ({stage.upper()} the debate):")
+    print("Please vote your initial opinion on the topic:")
+    print("1. FOR")
+    print("2. AGAINST")
+    print("3. NEUTRAL / UNDECIDED")
+
+    votes = {"for": 0, "against": 0, "neutral": 0}
+    num_voters = int(input("👥 Enter number of audience members voting: "))
+
+    for i in range(num_voters):
+        while True:
+            try:
+                vote = int(input(f"🧑 Audience Member {i+1}, your vote (1/2/3): "))
+                if vote == 1:
+                    votes["for"] += 1
+                    break
+                elif vote == 2:
+                    votes["against"] += 1
+                    break
+                elif vote == 3:
+                    votes["neutral"] += 1
+                    break
+                else:
+                    print("❌ Invalid vote. Please enter 1, 2, or 3.")
+            except ValueError:
+                print("⚠️ Please enter a number.")
+
+    print(f"\n✅ Results ({stage.upper()} Debate):")
+    print(f"🟩 FOR: {votes['for']}")
+    print(f"🟥 AGAINST: {votes['against']}")
+    print(f"🟨 NEUTRAL: {votes['neutral']}")
+    return votes
